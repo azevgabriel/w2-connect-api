@@ -1,13 +1,10 @@
-import {
-  AddReservationsModel,
-  ReservationsModel,
-} from '../models/reservations';
+import { AddReservationModel, ReservationModel } from '../models/reservations';
 
 export interface ReservationsRepository {
-  add(reservation: AddReservationsModel): Promise<ReservationsModel>;
+  add(reservation: AddReservationModel): Promise<ReservationModel>;
   updateById(
     id: string,
-    reservation: Partial<AddReservationsModel>
-  ): Promise<ReservationsModel | null>;
-  disableById(id: string): Promise<ReservationsModel | null>;
+    reservation: Partial<AddReservationModel>
+  ): Promise<ReservationModel | null>;
+  disableById(id: string): Promise<ReservationModel | null>;
 }

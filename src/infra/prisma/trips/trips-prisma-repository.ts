@@ -59,7 +59,13 @@ export class TripsPrismaRepository implements TripsRepository {
     return await this.#tripsRepository.findUnique({
       where: { id },
       include: {
-        reservations: true,
+        reservations: {
+          where: {
+            NOT: {
+              status: 'cancelled',
+            },
+          },
+        },
       },
     });
   }

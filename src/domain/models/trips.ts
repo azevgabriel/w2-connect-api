@@ -1,4 +1,4 @@
-import { ReservationsModel } from './reservations';
+import { ReservationModel } from './reservations';
 
 export type TripStatus = 'planned' | 'in_progress' | 'completed' | 'canceled';
 
@@ -13,7 +13,7 @@ export interface TripModel {
 }
 
 export interface TripModelWithReservations extends TripModel {
-  reservations: ReservationsModel[];
+  reservations: ReservationModel[];
 }
 
 export type AddTripModel = Omit<TripModel, 'id' | 'createdAt' | 'updatedAt'>;

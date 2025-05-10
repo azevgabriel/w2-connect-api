@@ -1,6 +1,6 @@
 import {
-  AddReservationsModel,
-  ReservationsModel,
+  AddReservationModel,
+  ReservationModel,
 } from '@/domain/models/reservations';
 import { ReservationsRepository } from '@/domain/repositories/reservations-repository';
 import { prismaHelper } from '..';
@@ -8,7 +8,7 @@ import { prismaHelper } from '..';
 export class ReservationsPrismaRepository implements ReservationsRepository {
   #reservationRepository = prismaHelper.reservations;
 
-  async add(reservation: AddReservationsModel): Promise<ReservationsModel> {
+  async add(reservation: AddReservationModel): Promise<ReservationModel> {
     return await this.#reservationRepository.create({
       data: reservation,
     });
@@ -16,15 +16,15 @@ export class ReservationsPrismaRepository implements ReservationsRepository {
 
   async updateById(
     id: string,
-    reservation: Partial<AddReservationsModel>
-  ): Promise<ReservationsModel | null> {
+    reservation: Partial<AddReservationModel>
+  ): Promise<ReservationModel | null> {
     return await this.#reservationRepository.update({
       where: { id },
       data: reservation,
     });
   }
 
-  async disableById(id: string): Promise<ReservationsModel | null> {
+  async disableById(id: string): Promise<ReservationModel | null> {
     return await this.#reservationRepository.update({
       where: { id },
       data: { status: 'cancelled' },

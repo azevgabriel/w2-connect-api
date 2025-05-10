@@ -1,4 +1,4 @@
-export interface ReservationsModel {
+export interface ReservationModel {
   id: string;
   startDate: Date;
   endDate: Date;
@@ -10,7 +10,7 @@ export interface ReservationsModel {
   updatedAt: Date;
 }
 
-export type AddReservationsModel = Omit<
-  ReservationsModel,
+export type AddReservationModel = Omit<
+  ReservationModel,
   'id' | 'createdAt' | 'updatedAt'
 >;
