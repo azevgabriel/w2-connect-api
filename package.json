@@ -1,0 +1,39 @@
+{
+  "name": "w2-connect-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf ./dist && tsc -p tsconfig-build.json",
+    "dev": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azevgabriel/w2-connect-api.git"
+  },
+  "keywords": [],
+  "author": "Gabriel Azebedo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azevgabriel/w2-connect-api/issues"
+  },
+  "homepage": "https://github.com/azevgabriel/w2-connect-api#readme",
+  "engines": {
+    "node": "22.14.0",
+    "nvm": "10.9.2"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "module-alias": "^2.2.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.17",
+    "nodemon": "^3.1.10",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  },
+  "_moduleAliases": {
+    "@": "./dist"
+  }
+}

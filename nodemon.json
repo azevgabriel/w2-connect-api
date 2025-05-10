@@ -1,0 +1,7 @@
+{
+    "watch": [
+        "src"
+    ],
+    "ext": ".ts,.js,.tsx",
+    "exec": "yarn build && node dist/main/server.js"
+}
