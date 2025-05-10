@@ -22,7 +22,7 @@
   "homepage": "https://github.com/azevgabriel/w2-connect-api#readme",
   "engines": {
     "node": "22.14.0",
-    "nvm": "10.9.2"
+    "npm": "10.9.2"
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
@@ -30,7 +30,8 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "module-alias": "^2.2.3"
+    "module-alias": "^2.2.3",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",

@@ -1,4 +1,4 @@
-import { AddUserController } from '@/controllers/users/add-user';
+import { AddUserController } from '@/controllers/users/add-user/add-user';
 import { UsersPrismaRepository } from '@/infra/prisma/users/users-prisma-repository';
 import { EncryptHelper } from '@/services/external/encrypt';
 import { AddUserService } from '@/services/internal/users/add-user';

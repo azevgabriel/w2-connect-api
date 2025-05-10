@@ -13,10 +13,10 @@ export class AddUserService implements AddUserServiceProtocols {
   async add(user: AddUserModel): Promise<Omit<UserModel, 'password'>> {
     const userExists = await this.userRepository.loadByEmail(user.email);
 
-    if (!userExists)
+    if (userExists)
       throw new ValidationError({
-        message: 'User already exists',
-        action: 'add-user-service',
+        message: "User's email already exists.",
+        action: 'The email is already registered.',
         statusCode: 400,
         key: 'email',
       });
