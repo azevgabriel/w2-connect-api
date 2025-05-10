@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prisma:migration": "prisma migrate dev",
     "build": "rimraf ./dist && tsc -p tsconfig-build.json",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "node dist/main/server.js"
   },
   "repository": {
     "type": "git",

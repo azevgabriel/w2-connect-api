@@ -13,3 +13,64 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Trips     Trips[]
+
+  @@map("users")
+}
+
+enum ReservationTypes {
+  hotel
+  flight
+  car
+  activity
+}
+
+enum ReservationStatus {
+  confirmed
+  pending
+  cancelled
+}
+
+model ReservationModel {
+  id        String            @id @default(uuid())
+  startDate DateTime
+  endDate   DateTime
+  type      ReservationTypes
+  value     Int
+  status    ReservationStatus
+  tripId    String
+  trip      Trips             @relation(fields: [tripId], references: [id])
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@map("reservations")
+}
+
+enum TripStatus {
+  planned
+  in_progress
+  completed
+  canceled
+}
+
+model Trips {
+  id           String             @id @default(uuid())
+  startDate    DateTime
+  name         String
+  status       TripStatus
+  userId       String
+  user         User               @relation(fields: [userId], references: [id])
+  reservations ReservationModel[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  @@map("trips")
+}
