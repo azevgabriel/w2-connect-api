@@ -17,7 +17,8 @@ export const adaptByExpressRoute = (controller: Controller) => {
     const httpResponse: HttpResponse = await controller.handle(httpRequest);
 
     response.status(httpResponse.statusCode);
-    Reflect.deleteProperty(httpResponse.body, 'statusCode');
+    if (httpResponse.body?.statusCode)
+      Reflect.deleteProperty(httpResponse.body, 'statusCode');
     response.send(httpResponse.body);
   };
 };

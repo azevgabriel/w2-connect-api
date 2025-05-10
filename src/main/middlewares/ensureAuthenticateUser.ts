@@ -1,15 +1,12 @@
 import { TokenHelper } from '@/services/helpers/token';
-import { NextFunction, Request, Response } from 'express';
 import { ForbiddenError } from '../presentation/errors';
 import { handlerException } from '../presentation/helpers/http-handler-exceptions';
 
-const tokenHelper = new TokenHelper();
+import { RequestHandler } from 'express';
 
-export async function ensureAuthenticateCustomer(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export const ensureAuthenticateCustomer: RequestHandler = (req, res, next) => {
+  const tokenHelper = new TokenHelper();
+
   try {
     if (!req.headers.authorization)
       throw new ForbiddenError({
@@ -25,12 +22,12 @@ export async function ensureAuthenticateCustomer(
         name: 'AuthorizationError',
       });
 
-    const user = await tokenHelper.verifyToken(token);
+    const user = tokenHelper.verifyToken(token);
 
     req.user = user;
-    return next();
+    next();
   } catch (error: any) {
     const { statusCode, body } = handlerException(error);
-    return res.status(statusCode).json(body);
+    res.status(statusCode).send(body);
   }
-}
+};

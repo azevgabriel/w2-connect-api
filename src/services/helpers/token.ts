@@ -17,14 +17,14 @@ export class TokenHelper implements TokenHelperProtocols {
   }
 
   generateToken(user: UserJwtPayload, expiresIn: StringValue): string {
-    const userStringify = JSON.stringify(user);
+    const sub = JSON.stringify(user);
 
-    return sign({ userStringify }, this.#MD5, {
+    return sign({ sub }, this.#MD5, {
       expiresIn,
     });
   }
 
-  async verifyToken(token: string): Promise<UserJwtPayload> {
+  verifyToken(token: string): UserJwtPayload {
     const { sub } = verify(token, this.#MD5);
 
     const data =

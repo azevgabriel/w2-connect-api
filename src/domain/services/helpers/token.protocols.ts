@@ -14,5 +14,5 @@ export type StringValue =
 
 export interface TokenHelperProtocols {
   generateToken: (user: UserJwtPayload, expiresIn: StringValue) => string;
-  verifyToken: (token: string) => Promise<UserJwtPayload>;
+  verifyToken: (token: string) => UserJwtPayload;
 }

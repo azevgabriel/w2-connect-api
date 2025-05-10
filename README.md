@@ -3,7 +3,7 @@
 ### Rotas
 
 - [x] POST `/users` (Criação de usuário)
-  - [ ] POST `/auth` (Login do usuário)
+  - [x] POST `/auth` (Login do usuário)
 - [ ] `/trips`
   - [ ] POST (Criação de viagem)
   - [ ] GET (Listagem de viagens)

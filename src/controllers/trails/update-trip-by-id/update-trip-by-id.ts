@@ -1,17 +1,20 @@
-import { AuthUserUseCaseProtocols } from '@/domain/services/use-cases/users/auth-user.protocols';
+import { UpdateTripByIdUseCaseProtocols } from '@/domain/services/use-cases/trips/update-trip-by-id.protocols';
 import { ValidationError } from '@/main/presentation/errors';
 import { handlerException } from '@/main/presentation/helpers/http-handler-exceptions';
 import { ok } from '@/main/presentation/helpers/http-response';
 import { Controller } from '@/main/presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@/main/presentation/protocols/http';
-import { authUserBodySchema } from './body-schema';
+import { updateTripBodySchema } from './body-schema';
 
-export class AuthUserController implements Controller {
-  constructor(private readonly authUserUseCase: AuthUserUseCaseProtocols) {}
+export class UpdateTripByIdController implements Controller {
+  constructor(
+    private readonly updateTripByIdUseCase: UpdateTripByIdUseCaseProtocols
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const body = httpRequest?.body;
+      const id = httpRequest?.params?.id;
 
       if (!body) {
         throw new ValidationError({
@@ -19,7 +22,13 @@ export class AuthUserController implements Controller {
         });
       }
 
-      const safeBody = authUserBodySchema.safeParse(body);
+      if (!id) {
+        throw new ValidationError({
+          action: 'Invalid parameter',
+        });
+      }
+
+      const safeBody = updateTripBodySchema.safeParse(body);
 
       if (!safeBody.success)
         throw new ValidationError({
@@ -27,13 +36,13 @@ export class AuthUserController implements Controller {
           action: safeBody.error.issues,
         });
 
-      const { email, password } = safeBody.data;
+      const updatedTrip = await this.updateTripByIdUseCase.updateById(
+        id,
+        safeBody.data
+      );
 
-      const userCreated = await this.authUserUseCase.auth(email, password);
-
-      return ok(userCreated);
+      return ok(updatedTrip);
     } catch (error: any) {
-      console.error(error);
       return handlerException(error);
     }
   }
