@@ -1,13 +1,13 @@
-import { AddUserUseCaseProtocols } from '@/domain/services/use-cases/users/add-user.protocols';
+import { AuthUserUseCaseProtocols } from '@/domain/services/use-cases/users/auth-user.protocols';
 import { ValidationError } from '@/main/presentation/errors';
 import { handlerException } from '@/main/presentation/helpers/http-handler-exceptions';
-import { created } from '@/main/presentation/helpers/http-response';
+import { ok } from '@/main/presentation/helpers/http-response';
 import { Controller } from '@/main/presentation/protocols/controller';
 import { HttpRequest, HttpResponse } from '@/main/presentation/protocols/http';
-import { addUserBodySchema } from './body-schema';
+import { authUserBodySchema } from './body-schema';
 
-export class AddUserController implements Controller {
-  constructor(private readonly addUserService: AddUserUseCaseProtocols) {}
+export class AuthUserController implements Controller {
+  constructor(private readonly authUserUseCase: AuthUserUseCaseProtocols) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
@@ -19,7 +19,7 @@ export class AddUserController implements Controller {
         });
       }
 
-      const safeBody = addUserBodySchema.safeParse(body);
+      const safeBody = authUserBodySchema.safeParse(body);
 
       if (!safeBody.success)
         throw new ValidationError({
@@ -27,9 +27,11 @@ export class AddUserController implements Controller {
           action: safeBody.error.issues,
         });
 
-      const userCreated = await this.addUserService.add(safeBody.data);
+      const { email, password } = safeBody.data;
 
-      return created(userCreated);
+      const userCreated = await this.authUserUseCase.auth(email, password);
+
+      return ok(userCreated);
     } catch (error: any) {
       console.error(error);
       return handlerException(error);

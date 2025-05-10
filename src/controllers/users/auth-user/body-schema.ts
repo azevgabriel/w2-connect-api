@@ -2,8 +2,7 @@
 
 import { z } from 'zod';
 
-export const addUserBodySchema = z.object({
-  name: z.string().min(1, { message: 'Name is required' }),
+export const authUserBodySchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
   password: z
     .string()

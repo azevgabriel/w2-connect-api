@@ -19,7 +19,7 @@ export class TokenHelper implements TokenHelperProtocols {
   generateToken(user: UserJwtPayload, expiresIn: StringValue): string {
     const userStringify = JSON.stringify(user);
 
-    return sign(userStringify, this.#MD5, {
+    return sign({ userStringify }, this.#MD5, {
       expiresIn,
     });
   }

@@ -1,10 +1,10 @@
 import { AddUserModel, UserModel } from '@/domain/models/users';
 import { UsersRepository } from '@/domain/repositories/users-repository';
-import { AddUserServiceProtocols } from '@/domain/services/use-cases/users/add-user.protocols';
+import { AddUserUseCaseProtocols } from '@/domain/services/use-cases/users/add-user.protocols';
 import { ValidationError } from '@/main/presentation/errors';
 import { EncryptHelper } from '@/services/helpers/encrypt';
 
-export class AddUserService implements AddUserServiceProtocols {
+export class AddUserUseCase implements AddUserUseCaseProtocols {
   constructor(
     private readonly userRepository: UsersRepository,
     private readonly encryptHelper: EncryptHelper
