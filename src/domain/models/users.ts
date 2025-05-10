@@ -9,3 +9,8 @@ export interface UserModel {
 }
 
 export type AddUserModel = Omit<UserModel, 'id' | 'createdAt' | 'updatedAt'>;
+
+export interface AuthenticateUserModel {
+  token: string;
+  user: Omit<UserModel, 'password'>;
+}

@@ -9,3 +9,8 @@ export interface ReservationsModel {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type AddReservationsModel = Omit<
+  ReservationsModel,
+  'id' | 'createdAt' | 'updatedAt'
+>;

@@ -1,5 +1,6 @@
 import { AddUserModel, UserModel } from '@/domain/models/users';
 
 export interface UsersRepository {
-  addUser: (user: AddUserModel) => Promise<UserModel>;
+  add: (user: AddUserModel) => Promise<UserModel>;
+  loadByEmail: (email: string) => Promise<UserModel | null>;
 }
