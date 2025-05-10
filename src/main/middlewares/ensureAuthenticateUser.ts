@@ -1,4 +1,4 @@
-import { TokenHelper } from '@/services/external/token';
+import { TokenHelper } from '@/services/helpers/token';
 import { NextFunction, Request, Response } from 'express';
 import { ForbiddenError } from '../presentation/errors';
 import { handlerException } from '../presentation/helpers/http-handler-exceptions';

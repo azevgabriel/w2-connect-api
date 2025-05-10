@@ -1,3 +1,6 @@
+// Aqui eu iria inverter a dependência
+// Porém como meu tempo é curto, vou deixar assim mesmo XD
+
 import { z } from 'zod';
 
 export const addUserBodySchema = z.object({

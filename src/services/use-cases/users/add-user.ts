@@ -1,8 +1,8 @@
 import { AddUserModel, UserModel } from '@/domain/models/users';
 import { UsersRepository } from '@/domain/repositories/users-repository';
-import { AddUserServiceProtocols } from '@/domain/services/internal/users/add-user.protocols';
+import { AddUserServiceProtocols } from '@/domain/services/use-cases/users/add-user.protocols';
 import { ValidationError } from '@/main/presentation/errors';
-import { EncryptHelper } from '@/services/external/encrypt';
+import { EncryptHelper } from '@/services/helpers/encrypt';
 
 export class AddUserService implements AddUserServiceProtocols {
   constructor(

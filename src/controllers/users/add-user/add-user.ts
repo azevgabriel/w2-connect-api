@@ -1,4 +1,4 @@
-import { AddUserServiceProtocols } from '@/domain/services/internal/users/add-user.protocols';
+import { AddUserServiceProtocols } from '@/domain/services/use-cases/users/add-user.protocols';
 import { ValidationError } from '@/main/presentation/errors';
 import { handlerException } from '@/main/presentation/helpers/http-handler-exceptions';
 import { Controller } from '@/main/presentation/protocols/controller';

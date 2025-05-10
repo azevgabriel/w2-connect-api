@@ -2,7 +2,7 @@ import {
   StringValue,
   TokenHelperProtocols,
   UserJwtPayload,
-} from '@/domain/services/external/token.protocols';
+} from '@/domain/services/helpers/token.protocols';
 import { UnauthorizedError } from '@/main/presentation/errors';
 import { sign, verify } from 'jsonwebtoken';
 
