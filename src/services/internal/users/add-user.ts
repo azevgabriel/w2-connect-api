@@ -1,0 +1,33 @@
+import { AddUserModel, UserModel } from '@/domain/models/users';
+import { UsersRepository } from '@/domain/repositories/users-repository';
+import { AddUserServiceProtocols } from '@/domain/services/internal/users/add-user.protocols';
+import { ValidationError } from '@/main/presentation/errors';
+import { EncryptHelper } from '@/services/external/encrypt';
+
+export class AddUserService implements AddUserServiceProtocols {
+  constructor(
+    private readonly userRepository: UsersRepository,
+    private readonly encryptHelper: EncryptHelper
+  ) {}
+
+  async add(user: AddUserModel): Promise<Omit<UserModel, 'password'>> {
+    const userExists = await this.userRepository.loadByEmail(user.email);
+
+    if (!userExists)
+      throw new ValidationError({
+        message: 'User already exists',
+        action: 'add-user-service',
+        statusCode: 400,
+        key: 'email',
+      });
+
+    const passwordEncrypted = await this.encryptHelper.encrypt(user.password);
+
+    const userCreated = await this.userRepository.add({
+      ...user,
+      password: passwordEncrypted,
+    });
+
+    return userCreated;
+  }
+}

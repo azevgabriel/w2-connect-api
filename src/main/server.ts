@@ -1,4 +1,6 @@
-import { appConfig } from "./config/app";
+import 'module-alias/register';
+
+import { appConfig } from './config/app';
 
 const app = appConfig();
 const PORT = process?.env?.PORT || 8080;

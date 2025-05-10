@@ -23,11 +23,13 @@ export class TripsPrismaRepository implements TripsRepository {
       status: filters?.status,
     };
 
-    const [trips, count] = await this.#tripsRepository.findMany({
+    const trips = await this.#tripsRepository.findMany({
       where,
       skip: (page - 1) * limit,
       take: limit,
     });
+
+    const count = await this.#tripsRepository.count();
 
     return {
       data: trips,

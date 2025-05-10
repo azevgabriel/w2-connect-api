@@ -1,12 +1,12 @@
-import express from "express";
-import http from "http";
+import express from 'express';
+import http from 'http';
+import { routes } from '../routes';
 
 export const appConfig = (): http.Server => {
   const app = express();
 
-  //   app.use(timeout("30s"));
-  app.use(express.json({ limit: "1mb" }));
-  //   app.use(routerConfig());
+  app.use(express.json({ limit: '1mb' }));
+  app.use(routes);
 
   const httpServer = http.createServer(app);
   return httpServer;
