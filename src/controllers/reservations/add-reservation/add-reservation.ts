@@ -1,3 +1,4 @@
+import { AMQPHelperProtocols } from '@/domain/services/helpers/amqp.protocols';
 import { AddReservationUseCaseProtocols } from '@/domain/services/use-cases/reservations/add-reservation.protocols';
 import { ValidationError } from '@/main/presentation/errors';
 import { handlerException } from '@/main/presentation/helpers/http-handler-exceptions';
@@ -8,7 +9,8 @@ import { addReservationBodySchema } from './body-schema';
 
 export class AddReservationController implements Controller {
   constructor(
-    private readonly addReservationUseCase: AddReservationUseCaseProtocols
+    private readonly addReservationUseCase: AddReservationUseCaseProtocols,
+    private readonly amqpHelperProtocols: AMQPHelperProtocols
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -29,7 +31,14 @@ export class AddReservationController implements Controller {
           action: safeBody.error.issues,
         });
 
-      const reservation = await this.addReservationUseCase.add(safeBody.data);
+      const reservation = await this.addReservationUseCase.add({
+        ...safeBody.data,
+        status: 'pending',
+      });
+
+      await this.amqpHelperProtocols.connect();
+      await this.amqpHelperProtocols.sendToQueue('reservation', reservation.id);
+      await this.amqpHelperProtocols.close();
 
       return created(reservation);
     } catch (error: any) {

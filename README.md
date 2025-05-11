@@ -13,7 +13,7 @@
   - [x] PUT `/:id` (Alterar viagem)
 - [x] `/reservations`
   - [x] POST (Adicionar reservas)
-    - [ ] Include `async` with SQS or RabbitMQ
+    - [x] Include `async` with SQS or RabbitMQ
   - [x] PUT `/:id` (Editar reservas)
   - [x] PATCH `/:id` (Remover reservas)
     - [x] Status `cancelled`
@@ -21,7 +21,7 @@
 ### Tecnologias
 
 - [x] (Infra) Docker-compose
-- [ ] (Gerenciamento de filas) SQS ou RabbitMQ
+- [x] (Gerenciamento de filas) SQS ou RabbitMQ
 - [ ] (Observabilidade) Winston ou Pino para logs
 
 ### Extras
@@ -30,6 +30,8 @@
 - [ ] Evitar que o usuário envie `${alert("Inject")}` ou `<script></script>` dentro de uma row do banco.
 
 ### Como rodar o projeto?
+
+`docker-compose up --build`
 
 ### Decisões arquiteturais
 

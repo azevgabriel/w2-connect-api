@@ -19,8 +19,5 @@ export const addReservationBodySchema = z.object({
     errorMap: () => ({ message: 'Invalid type' }),
   }),
   value: z.number().min(0, { message: 'Value must be greater than 0' }),
-  status: z.enum(['confirmed', 'pending', 'cancelled'], {
-    errorMap: () => ({ message: 'Invalid status' }),
-  }),
   tripId: z.string().min(1, { message: 'Trip ID is required' }),
 });

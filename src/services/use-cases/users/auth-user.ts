@@ -1,6 +1,6 @@
 import { UserModel } from '@/domain/models/users';
 import { UsersRepository } from '@/domain/repositories/users-repository';
-import { EncryptHelperProtocols } from '@/domain/services/helpers/encrypt.procotols';
+import { EncryptHelperProtocols } from '@/domain/services/helpers/encrypt.protocols';
 import { TokenHelperProtocols } from '@/domain/services/helpers/token.protocols';
 import { AuthUserUseCaseProtocols } from '@/domain/services/use-cases/users/auth-user.protocols';
 import { UnauthorizedError } from '@/main/presentation/errors';

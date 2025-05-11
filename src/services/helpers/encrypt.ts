@@ -1,4 +1,4 @@
-import { EncryptHelperProtocols } from '@/domain/services/helpers/encrypt.procotols';
+import { EncryptHelperProtocols } from '@/domain/services/helpers/encrypt.protocols';
 import { compare, hash } from 'bcryptjs';
 
 export class EncryptHelper implements EncryptHelperProtocols {
