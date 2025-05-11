@@ -3,3 +3,4 @@ dist/*
 generated/prisma/*
 
 .env
+.env.production
