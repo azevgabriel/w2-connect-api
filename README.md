@@ -35,4 +35,8 @@
 
 ### Decisões arquiteturais
 
+- S.O.L.I.D e paciência com esse RabbitMQ
+
 ### Documentação básica da API
+
+`/docs`
