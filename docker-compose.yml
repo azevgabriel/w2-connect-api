@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_w3_connect
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  database:
+    image: postgres:latest
+    container_name: postgres_w3_connect
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: w3_connect_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: w3_connect_app
+    command: sh -c "npx prisma migrate deploy && npm run dev"
+    ports:
+      - '8080:8080'
+    depends_on:
+      - rabbitmq
+      - database
+    env_file:
+      - .env.production
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/prisma
+
+volumes:
+  rabbitmq_data:
+  postgres_data:

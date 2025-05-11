@@ -1,5 +1,7 @@
-import { AddReservationModel } from '@/domain/models/reservations';
-import { ReservationModel } from '@prisma/client';
+import {
+  AddReservationModel,
+  ReservationModel,
+} from '@/domain/models/reservations';
 
 export interface UpdateReservationByIdUseCaseProtocols {
   updateById: (

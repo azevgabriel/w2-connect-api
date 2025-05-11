@@ -1,0 +1,322 @@
+type: collection.insomnia.rest/5.0
+name: w2-connect-api
+meta:
+  id: wrk_c0ed73918e81415e87e1255364c000f3
+  created: 1746902452073
+  modified: 1746902452073
+collection:
+  - name: Users
+    meta:
+      id: fld_0532c3ef356d49f288a5efb4c8ab8587
+      created: 1746906660727
+      modified: 1746916416455
+      sortKey: -1746908967575
+    children:
+      - url: http://localhost:8080/users
+        name: Create
+        meta:
+          id: req_0fcd426f88a645869d622e8b79123a96
+          created: 1746902459122
+          modified: 1746906678387
+          isPrivate: false
+          sortKey: -1746906669352
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "azevgabriel@gmail.com",
+            	"name": "Gabriel",
+            	"password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/users/auth
+        name: Auth
+        meta:
+          id: req_45017657e94241bf91b14429386530ff
+          created: 1746906641389
+          modified: 1746906870417
+          isPrivate: false
+          sortKey: -1746906669452
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "azevgabriel@gmail.com",
+            	"password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Trips
+    meta:
+      id: fld_06e94993af90490e9bbd39848d9d6227
+      created: 1746911274222
+      modified: 1746916433419
+      sortKey: -1746908967550
+    children:
+      - url: http://localhost:8080/trips/50902418-078a-4275-b5d3-35e1ca9d9733
+        name: Update by ID
+        meta:
+          id: req_0a3996d3c2ac4745af9e9c5aaf430940
+          created: 1746911277182
+          modified: 1746914024447
+          isPrivate: false
+          sortKey: -1746911277182
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"status": "in_progress"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/trips/9fcb4002-0ed9-4b85-9c0d-30e40c54582c
+        name: Load by ID
+        meta:
+          id: req_61ade3def47d4cffb26516da48e598dc
+          created: 1746911278608
+          modified: 1746916679897
+          isPrivate: false
+          sortKey: -1746911278608
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/trips
+        name: Load All
+        meta:
+          id: req_2968cf040d364d958e4fbcc29352d3f7
+          created: 1746911279840
+          modified: 1746912546297
+          isPrivate: false
+          sortKey: -1746911279840
+        method: GET
+        parameters:
+          - id: pair_e811b85e6e394ca48194a877d18099af
+            name: limit
+            value: "10"
+            disabled: false
+          - id: pair_b1260b3eadad427ab5e5fbe20a10d077
+            name: page
+            value: "1"
+            disabled: false
+          - id: pair_0d67311a8c4c4842bf1196519038ab97
+            name: filters
+            value: |-
+              {
+              	"status": "planned"
+              }
+            disabled: false
+            type: text
+            multiline: application/json
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/trips
+        name: Add
+        meta:
+          id: req_80678bc14ae047d9951c62d2314eaaa4
+          created: 1746911280901
+          modified: 1746911961982
+          isPrivate: false
+          sortKey: -1746911280901
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"startDate": "{% faker 'isoTimestamp' %}",
+            	"name": "Maldifas",
+            	"status": "planned"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Reservations
+    meta:
+      id: fld_1daf33286cce4cc5a597dc40ab8893f9
+      created: 1746916423333
+      modified: 1746916432290
+      sortKey: -1746908967525
+    children:
+      - url: http://localhost:8080/reservations/2eeab30c-69a3-40c5-be3e-a1d9f88fb0e3/cancel
+        name: Disable by ID
+        meta:
+          id: req_221fb76dc5654b4da5b0d142a6b1dfbc
+          created: 1746916436687
+          modified: 1746916775665
+          isPrivate: false
+          sortKey: -1746916436687
+        method: PATCH
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/reservations/2eeab30c-69a3-40c5-be3e-a1d9f88fb0e3
+        name: Update by ID
+        meta:
+          id: req_6cab1743c4db4ff28b5ff9ed4d084286
+          created: 1746916437933
+          modified: 1746916820256
+          isPrivate: false
+          sortKey: -1746916437933
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"status": "pending"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/reservations
+        name: Add
+        meta:
+          id: req_53834a8c68fd477ebdbde1468a13920d
+          created: 1746916439140
+          modified: 1746916647203
+          isPrivate: false
+          sortKey: -1746916439140
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"startDate": "{% faker 'isoTimestamp' %}",
+            	"endDate": "{% faker 'isoTimestamp' %}",
+            	"type": "car",
+            	"value": 100,
+            	"status": "pending",
+            	"tripId": "9fcb4002-0ed9-4b85-9c0d-30e40c54582c"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_5c1812ab9026efcc23888d62a40fead323a3f017
+    created: 1746902452075
+    modified: 1746902452075
+environments:
+  name: Base Environment
+  meta:
+    id: env_5c1812ab9026efcc23888d62a40fead323a3f017
+    created: 1746902452074
+    modified: 1746911948921
+    isPrivate: false
+  data:
+    token: "{% response 'body', 'req_45017657e94241bf91b14429386530ff',
+      'b64::JC50b2tlbg==::46b', 'never', 60 %}"

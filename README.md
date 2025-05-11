@@ -11,16 +11,16 @@
   - [x] GET `/:id` (Exibir detalhes da viagem)
     - [x] Include `reservations` (Incluindo todas as reservas)
   - [x] PUT `/:id` (Alterar viagem)
-- [ ] `/reservations`
-  - [ ] POST (Adicionar reservas)
+- [x] `/reservations`
+  - [x] POST (Adicionar reservas)
     - [ ] Include `async` with SQS or RabbitMQ
-  - [ ] PUT `/:id` (Editar reservas)
-  - [ ] PATCH `/:id` (Remover reservas)
-    - [ ] Status `cancelled`
+  - [x] PUT `/:id` (Editar reservas)
+  - [x] PATCH `/:id` (Remover reservas)
+    - [x] Status `cancelled`
 
 ### Tecnologias
 
-- [ ] (Infra) Docker-compose
+- [x] (Infra) Docker-compose
 - [ ] (Gerenciamento de filas) SQS ou RabbitMQ
 - [ ] (Observabilidade) Winston ou Pino para logs
 

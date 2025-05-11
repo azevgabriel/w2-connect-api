@@ -1,8 +1,10 @@
-import { AddReservationModel } from '@/domain/models/reservations';
+import {
+  AddReservationModel,
+  ReservationModel,
+} from '@/domain/models/reservations';
 import { ReservationsRepository } from '@/domain/repositories/reservations-repository';
 import { UpdateReservationByIdUseCaseProtocols } from '@/domain/services/use-cases/reservations/update-reservation-by-id.protocols';
 import { ValidationError } from '@/main/presentation/errors';
-import { ReservationModel } from '@prisma/client';
 
 export class UpdateReservationByIdUseCase
   implements UpdateReservationByIdUseCaseProtocols
