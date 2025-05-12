@@ -1,42 +1,78 @@
-## Roteiros de Viagem com processamente assíncrono de reservas.
+## 🧳 Roteiros de Viagem com Processamento Assíncrono de Reservas
 
-### Rotas
+### ✅ Rotas Implementadas
 
-- [x] POST `/users` (Criação de usuário)
-  - [x] POST `/auth` (Login do usuário)
-- [x] `/trips`
-  - [x] POST (Criação de viagem)
-  - [x] GET (Listagem de viagens)
-    - [x] Filter by `status`
-  - [x] GET `/:id` (Exibir detalhes da viagem)
-    - [x] Include `reservations` (Incluindo todas as reservas)
-  - [x] PUT `/:id` (Alterar viagem)
-- [x] `/reservations`
-  - [x] POST (Adicionar reservas)
-    - [x] Include `async` with SQS or RabbitMQ
-  - [x] PUT `/:id` (Editar reservas)
-  - [x] PATCH `/:id` (Remover reservas)
-    - [x] Status `cancelled`
+#### 👤 Usuários & Autenticação
 
-### Tecnologias
+- `POST /users` – Criação de usuário
+- `POST /auth` – Login do usuário
 
-- [x] (Infra) Docker-compose
-- [x] (Gerenciamento de filas) SQS ou RabbitMQ
-- [ ] (Observabilidade) Winston ou Pino para logs
+#### ✈️ Viagens (`/trips`)
 
-### Extras
+- `POST /trips` – Criar nova viagem
+- `GET /trips` – Listar viagens
 
-- [ ] Evitar que outros usuários acessem dados que não são deles
-- [ ] Evitar que o usuário envie `${alert("Inject")}` ou `<script></script>` dentro de uma row do banco.
+  - Suporte a filtro por `status`
 
-### Como rodar o projeto?
+- `GET /trips/:id` – Detalhes da viagem
 
-`docker-compose up --build`
+  - Inclui as `reservations` (todas as reservas da viagem)
 
-### Decisões arquiteturais
+- `PUT /trips/:id` – Atualizar viagem
 
-- S.O.L.I.D e paciência com esse RabbitMQ
+#### 📆 Reservas (`/reservations`)
 
-### Documentação básica da API
+- `POST /reservations` – Criar reserva
 
-`/docs`
+  - Processamento assíncrono via **SQS** ou **RabbitMQ**
+
+- `PUT /reservations/:id` – Atualizar reserva
+- `PATCH /reservations/:id` – Cancelar reserva
+
+  - Status alterado para `cancelled`
+
+---
+
+### 🛠️ Tecnologias Utilizadas
+
+- 🐳 **Docker Compose** – Orquestração de containers
+- 📬 **SQS** ou **RabbitMQ** – Gerenciamento de filas
+- 📄 **Winston** ou **Pino** – (Pendente) Observabilidade via logs
+
+---
+
+### 🛡️ Segurança e Boas Práticas (Pendentes)
+
+- [ ] Restringir acesso a dados de outros usuários
+- [ ] Sanitização de entrada (evitar injeções como `${alert("Inject")}` ou `<script></script>`)
+
+---
+
+### ▶️ Como Rodar o Projeto?
+
+```bash
+docker-compose up --build
+```
+
+- Certifique-se de criar um arquivo `.env.production` baseado no `.env.example`
+
+---
+
+### 🧱 Decisões Arquiteturais
+
+- Aplicação estruturada com princípios **S.O.L.I.D**
+- Paciência com o RabbitMQ 😅
+
+---
+
+### 📚 Documentação da API
+
+Acesse a documentação em:
+
+```
+/docs
+```
+
+---
+
+Se quiser, posso gerar um `README.md` com formatação pronta para GitHub. Deseja isso?
