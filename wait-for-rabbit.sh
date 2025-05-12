@@ -7,4 +7,4 @@ until nc -z rabbitmq 5672; do
 done
 
 echo "RabbitMQ está pronto. Iniciando aplicação..."
-exec "$@"
+exec "$@"dockerfile
