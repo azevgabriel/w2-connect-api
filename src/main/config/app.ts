@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import http from 'http';
 import { routes } from '../routes';
@@ -5,6 +6,7 @@ import { routes } from '../routes';
 export const appConfig = (): http.Server => {
   const app = express();
 
+  app.use(cors());
   app.use(express.json({ limit: '1mb' }));
   app.use(routes);
 

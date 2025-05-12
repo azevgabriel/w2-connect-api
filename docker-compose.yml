@@ -30,6 +30,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: w3_connect_app
+    entrypoint: ['sh', 'wait-for-rabbit.sh']
     command: sh -c "npx prisma migrate deploy && npm run dev"
     ports:
       - '8080:8080'
