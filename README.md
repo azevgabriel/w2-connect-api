@@ -72,7 +72,3 @@ Acesse a documentação em:
 ```
 /docs
 ```
-
----
-
-Se quiser, posso gerar um `README.md` com formatação pronta para GitHub. Deseja isso?
