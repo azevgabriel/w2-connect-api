@@ -3,7 +3,7 @@ version: '3.8'
 services:
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq_w3_connect
+    container_name: rabbitmq_wconnect
     ports:
       - '5672:5672'
       - '15672:15672'
@@ -15,13 +15,13 @@ services:
 
   database:
     image: postgres:latest
-    container_name: postgres_w3_connect
+    container_name: postgres_wconnect
     ports:
-      - '5432:5432'
+      - '5433:5433'
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: w3_connect_db
+      POSTGRES_DB: wconnect_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -30,7 +30,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: w3_connect_app
-    entrypoint: ['sh', 'wait-for-rabbit.sh']
+    entrypoint: ['sh', 'wait-for-services.sh']
     command: sh -c "npx prisma migrate deploy && npm run dev"
     ports:
       - '8080:8080'
