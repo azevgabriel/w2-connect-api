@@ -10,17 +10,21 @@ export class AddTripController implements Controller {
   constructor(private readonly addTripUseCase: AddTripUseCaseProtocols) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    const logger = httpRequest?.log;
+
     try {
       const body = httpRequest?.body;
       const user = httpRequest?.user;
 
       if (!user) {
+        logger.warn('User not authenticated');
         throw new ForbiddenError({
           action: 'User not found',
         });
       }
 
       if (!body) {
+        logger.warn('Body is required');
         throw new ValidationError({
           action: 'Body is required',
         });
@@ -28,19 +32,27 @@ export class AddTripController implements Controller {
 
       const safeBody = addTripBodySchema.safeParse(body);
 
-      if (!safeBody.success)
+      if (!safeBody.success) {
+        logger.warn(
+          { bodyIssues: safeBody.error.issues },
+          'The request body is invalid'
+        );
         throw new ValidationError({
           message: 'The request body is invalid.',
           action: safeBody.error.issues,
         });
+      }
 
       const tripCreated = await this.addTripUseCase.add({
         ...safeBody.data,
         userId: user.id,
       });
 
+      logger.trace(`Trip ID created: ${tripCreated.id}`);
+
       return created(tripCreated);
     } catch (error: any) {
+      logger.error({ error }, 'Error while trying to create a new trip');
       return handlerException(error);
     }
   }

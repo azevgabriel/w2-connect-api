@@ -1,3 +1,5 @@
+import { Logger } from 'pino';
+
 export interface HttpResponse {
   statusCode: number;
   body: any;
@@ -23,4 +25,5 @@ export interface HttpRequest {
   method?: string;
   files?: File[];
   ip?: any;
+  log: Logger<never, boolean>;
 }

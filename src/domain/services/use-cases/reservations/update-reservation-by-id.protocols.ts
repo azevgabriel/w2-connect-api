@@ -7,5 +7,5 @@ export interface UpdateReservationByIdUseCaseProtocols {
   updateById: (
     id: string,
     reservation: Partial<AddReservationModel>
-  ) => Promise<ReservationModel | null>;
+  ) => Promise<ReservationModel>;
 }

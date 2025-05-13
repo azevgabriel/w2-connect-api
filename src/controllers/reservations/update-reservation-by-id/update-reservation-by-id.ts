@@ -12,17 +12,21 @@ export class UpdateReservationByIdController implements Controller {
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    const logger = httpRequest?.log;
+
     try {
       const body = httpRequest.body;
       const id = httpRequest.params?.id;
 
       if (!body) {
+        logger.warn('Body is required');
         throw new ValidationError({
           action: 'Body is required',
         });
       }
 
       if (!id) {
+        logger.warn('ID is required');
         throw new ValidationError({
           action: '(Params) ID is required',
         });
@@ -30,19 +34,26 @@ export class UpdateReservationByIdController implements Controller {
 
       const safeBody = addReservationBodySchema.safeParse(body);
 
-      if (!safeBody.success)
+      if (!safeBody.success) {
+        logger.warn(
+          { bodyIssues: safeBody.error.issues },
+          'The request body is invalid'
+        );
         throw new ValidationError({
           message: 'The request body is invalid.',
           action: safeBody.error.issues,
         });
+      }
 
       const reservation = await this.updateReservationByIdUseCase.updateById(
         id,
         safeBody.data
       );
 
+      logger.trace(`Reservation ID updated: ${reservation.id}`);
       return ok(reservation);
     } catch (error: any) {
+      logger.error({ error }, 'Error while trying to update a reservation');
       return handlerException(error);
     }
   }

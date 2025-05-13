@@ -41,7 +41,6 @@ services:
       - .env.production
     volumes:
       - .:/app
-      - /app/node_modules
       - /app/prisma
 
 volumes:

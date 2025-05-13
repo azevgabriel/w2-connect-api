@@ -11,21 +11,29 @@ export class LoadTripsController implements Controller {
   constructor(private readonly loadTripsUseCase: LoadTripsUseCaseProtocols) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    const logger = httpRequest?.log;
+
     try {
       const user = httpRequest?.user;
       const query = parsedQuery(httpRequest?.query);
 
       if (!user) {
+        logger?.warn('Uset not authenticated');
         throw new ForbiddenError({});
       }
 
       const safeQuery = query ? loadTripsQuerySchema.safeParse(query) : null;
 
-      if (safeQuery && !safeQuery.success)
+      if (safeQuery && !safeQuery.success) {
+        logger?.warn(
+          { queryIssues: safeQuery.error.issues },
+          'The request query is invalid'
+        );
         throw new ValidationError({
           message: 'The request body is invalid.',
           action: safeQuery.error.issues,
         });
+      }
 
       const tripsPagination = await this.loadTripsUseCase.load({
         limit: safeQuery?.data.limit || 10,
@@ -36,8 +44,13 @@ export class LoadTripsController implements Controller {
         },
       });
 
+      logger?.trace(
+        `Trips loaded: ${tripsPagination.data.length}/${tripsPagination.count.total}`
+      );
+
       return paginate(tripsPagination);
     } catch (error: any) {
+      logger?.error({ error }, 'Error while trying to load trips');
       return handlerException(error);
     }
   }

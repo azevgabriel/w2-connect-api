@@ -36,8 +36,8 @@
 ### 🛠️ Tecnologias Utilizadas
 
 - 🐳 **Docker Compose** – Orquestração de containers
-- 📬 **SQS** ou **RabbitMQ** – Gerenciamento de filas
-- 📄 **Winston** ou **Pino** – (Pendente) Observabilidade via logs
+- 📬 **RabbitMQ** – Gerenciamento de filas
+- 📄 **Pino** – Observabilidade via logs
 
 ---
 

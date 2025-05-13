@@ -11,10 +11,13 @@ export class DisabledReservationByIdController implements Controller {
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    const logger = httpRequest?.log;
+
     try {
       const id = httpRequest.params?.id;
 
       if (!id) {
+        logger.warn('ID is required');
         throw new ValidationError({
           action: '(Params) ID is required',
         });
@@ -24,8 +27,10 @@ export class DisabledReservationByIdController implements Controller {
         id
       );
 
+      logger.trace(`Reservation ID disabled: ${reservation.id}`);
       return ok(reservation);
     } catch (error: any) {
+      logger.error({ error }, 'Error while trying to disable a reservation');
       return handlerException(error);
     }
   }
