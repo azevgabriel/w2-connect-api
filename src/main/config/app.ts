@@ -12,24 +12,13 @@ export const appConfig = (): http.Server => {
   const logger = pino({
     level: process?.env?.PINO_LOG_LEVEL || 'info',
     transport: {
-      targets: [
-        {
-          target: 'pino-pretty',
-          options: {
-            levelFirst: true,
-            colorize: true,
-            translateTime: 'SYS:standard',
-            ignore: 'pid,hostname',
-          },
-        },
-        {
-          target: 'pino/file',
-          options: {
-            destination: process?.env?.PINO_LOG_FILE || './logs/app.log',
-            mkdir: true,
-          },
-        },
-      ],
+      target: 'pino-pretty',
+      options: {
+        levelFirst: true,
+        colorize: true,
+        translateTime: 'SYS:standard',
+        ignore: 'pid,hostname',
+      },
     },
     redact: ['user.password'],
   });
