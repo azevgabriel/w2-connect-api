@@ -3,5 +3,5 @@
         "src"
     ],
     "ext": ".ts,.js,.tsx",
-    "exec": "npm run build && node dist/main/server.js"
+    "exec": "npm run build && npm run start"
 }

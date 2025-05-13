@@ -11,10 +11,13 @@ export class LoadTripByIdController implements Controller {
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    const logger = httpRequest?.log;
+
     try {
       const id = httpRequest?.params?.id;
 
       if (!id) {
+        logger.warn('ID is required');
         throw new ValidationError({
           action: 'Invalid parameter',
         });
@@ -22,8 +25,12 @@ export class LoadTripByIdController implements Controller {
 
       const tripCreated = await this.loadTripByIdUseCase.loadById(id);
 
+      logger.trace(`Trip ID loaded: ${tripCreated.id}`);
+      logger.trace(`Qtnd of reservations: ${tripCreated.reservations.length}`);
+
       return ok(tripCreated);
     } catch (error: any) {
+      logger.error({ error }, 'Error while trying to load a trip by ID');
       return handlerException(error);
     }
   }

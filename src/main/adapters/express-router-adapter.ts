@@ -12,6 +12,7 @@ export const adaptByExpressRoute = (controller: Controller) => {
       method: request.method?.toLowerCase(),
       user: request?.user,
       headers: request.headers,
+      log: request.log,
     };
 
     const httpResponse: HttpResponse = await controller.handle(httpRequest);

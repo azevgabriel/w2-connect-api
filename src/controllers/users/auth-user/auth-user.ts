@@ -10,10 +10,13 @@ export class AuthUserController implements Controller {
   constructor(private readonly authUserUseCase: AuthUserUseCaseProtocols) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    const logger = httpRequest?.log;
+
     try {
       const body = httpRequest?.body;
 
       if (!body) {
+        logger.warn('Body is required');
         throw new ValidationError({
           action: 'Body is required',
         });
@@ -21,19 +24,26 @@ export class AuthUserController implements Controller {
 
       const safeBody = authUserBodySchema.safeParse(body);
 
-      if (!safeBody.success)
+      if (!safeBody.success) {
+        logger.warn(
+          { bodyIssues: safeBody.error.issues },
+          'The request body is invalid'
+        );
         throw new ValidationError({
           message: 'The request body is invalid.',
           action: safeBody.error.issues,
         });
+      }
 
       const { email, password } = safeBody.data;
 
-      const userCreated = await this.authUserUseCase.auth(email, password);
+      logger.trace(`User email to authenticate: ${email}`);
+      const auth = await this.authUserUseCase.auth(email, password);
 
-      return ok(userCreated);
+      logger.trace(`Token has been generated: ${!!auth.token}`);
+      return ok(auth);
     } catch (error: any) {
-      console.error(error);
+      logger.error({ error }, 'Error while trying to authenticate user');
       return handlerException(error);
     }
   }

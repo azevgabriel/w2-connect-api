@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y netcat-openbsd
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 RUN npm install
 

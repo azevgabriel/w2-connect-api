@@ -4,5 +4,6 @@ declare namespace Express {
       id: string;
       email: string;
     };
+    log: pino.Logger<never, boolean>;
   }
 }
